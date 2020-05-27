@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarRentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CarModels">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MakeId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Makes" Relationship="Self.FK__CarModels__MakeI__2D27B809" FromRole="CarModels" ToRole="Makes" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__CarModelId__34C8D9D1" FromRole="CarModels" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MakeId" Type="Int32" />
+    <Property Name="CarModelId" Type="Int32" />
+    <Property Name="ColorId" Type="Int32" />
+    <Property Name="CityId" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="EngineCapacity" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="AddedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CarModels" Relationship="Self.FK__Cars__CarModelId__34C8D9D1" FromRole="Cars" ToRole="CarModels" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK__Cars__CityId__36B12243" FromRole="Cars" ToRole="Cities" />
+    <NavigationProperty Name="Colors" Relationship="Self.FK__Cars__ColorId__35BCFE0A" FromRole="Cars" ToRole="Colors" />
+    <NavigationProperty Name="Makes" Relationship="Self.FK__Cars__MakeId__33D4B598" FromRole="Cars" ToRole="Makes" />
+    <NavigationProperty Name="Orders" Relationship="CarRentModel.FK__Orders__CarId__412EB0B6" FromRole="Cars" ToRole="Orders" />
+    <Property Name="IsInGarage" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__CityId__36B12243" FromRole="Cities" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="CardId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="AddedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="CarRentModel.FK__Orders__ClientId__403A8C7D" FromRole="Clients" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Colors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__ColorId__35BCFE0A" FromRole="Colors" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Makes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CarModels" Relationship="Self.FK__CarModels__MakeI__2D27B809" FromRole="Makes" ToRole="CarModels" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK__Cars__MakeId__33D4B598" FromRole="Makes" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
+    <Property Name="CardId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AddedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__CarModels__MakeI__2D27B809">
+    <End Role="Makes" Type="Self.Makes" Multiplicity="0..1" />
+    <End Role="CarModels" Type="Self.CarModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarModels">
+        <PropertyRef Name="MakeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cars__CarModelId__34C8D9D1">
+    <End Role="CarModels" Type="Self.CarModels" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarModels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CarModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cars__CityId__36B12243">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cars__ColorId__35BCFE0A">
+    <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cars__MakeId__33D4B598">
+    <End Role="Makes" Type="Self.Makes" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="MakeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarRentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CarModels" EntityType="Self.CarModels" />
+    <EntitySet Name="Cars" EntityType="Self.Cars" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="Colors" EntityType="Self.Colors" />
+    <EntitySet Name="Makes" EntityType="Self.Makes" />
+    <EntitySet Name="Workers" EntityType="Self.Workers" />
+    <AssociationSet Name="FK__CarModels__MakeI__2D27B809" Association="Self.FK__CarModels__MakeI__2D27B809">
+      <End Role="Makes" EntitySet="Makes" />
+      <End Role="CarModels" EntitySet="CarModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cars__CarModelId__34C8D9D1" Association="Self.FK__Cars__CarModelId__34C8D9D1">
+      <End Role="CarModels" EntitySet="CarModels" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cars__CityId__36B12243" Association="Self.FK__Cars__CityId__36B12243">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cars__ColorId__35BCFE0A" Association="Self.FK__Cars__ColorId__35BCFE0A">
+      <End Role="Colors" EntitySet="Colors" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cars__MakeId__33D4B598" Association="Self.FK__Cars__MakeId__33D4B598">
+      <End Role="Makes" EntitySet="Makes" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="CarRentModel.Orders" />
+    <AssociationSet Name="FK__Orders__CarId__412EB0B6" Association="CarRentModel.FK__Orders__CarId__412EB0B6">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__ClientId__403A8C7D" Association="CarRentModel.FK__Orders__ClientId__403A8C7D">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="Int32" />
+    <Property Name="CarId" Type="Int32" />
+    <Property Name="PickUpDate" Type="DateTime" Precision="3" />
+    <Property Name="DropOffDate" Type="DateTime" Precision="3" />
+    <Property Name="CarPrice" Type="Int32" />
+    <Property Name="PenaltyPrice" Type="Int32" />
+    <Property Name="TotalPrice" Type="Int32" />
+    <NavigationProperty Name="Cars" Relationship="CarRentModel.FK__Orders__CarId__412EB0B6" FromRole="Orders" ToRole="Cars" />
+    <NavigationProperty Name="Clients" Relationship="CarRentModel.FK__Orders__ClientId__403A8C7D" FromRole="Orders" ToRole="Clients" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__Orders__CarId__412EB0B6">
+    <End Type="CarRentModel.Cars" Role="Cars" Multiplicity="0..1" />
+    <End Type="CarRentModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__ClientId__403A8C7D">
+    <End Type="CarRentModel.Clients" Role="Clients" Multiplicity="0..1" />
+    <End Type="CarRentModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
